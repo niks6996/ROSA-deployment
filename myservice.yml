@@ -1,0 +1,53 @@
+kind: Service
+apiVersion: v1
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: ''
+    app.openshift.io/vcs-uri: 'https://github.com/sclorg/nginx-ex.git'
+    openshift.io/generated-by: OpenShiftWebConsole
+  resourceVersion: '2481627'
+  name: nginx-ex-git
+  labels:
+    app: nginx-ex-git
+    app.kubernetes.io/component: nginx-ex-git
+    app.kubernetes.io/instance: nginx-ex-git
+    app.kubernetes.io/name: nginx-ex-git
+    app.kubernetes.io/part-of: nginx-ex-git-app
+    app.openshift.io/runtime: nginx
+    app.openshift.io/runtime-version: 1.20-ubi7
+spec:
+  clusterIP: 172.30.115.85
+  externalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 32025
+    - name: 8443-tcp
+      protocol: TCP
+      port: 8443
+      targetPort: 8443
+      nodePort: 30237
+    - name: react-ui-port
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+      nodePort: 31617
+  internalTrafficPolicy: Cluster
+  clusterIPs:
+    - 172.30.115.85
+  allocateLoadBalancerNodePorts: true
+  type: LoadBalancer
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: nginx-ex-git
+    deployment: nginx-ex-git
+status:
+  loadBalancer:
+    ingress:
+      - hostname: >-
+          afb66f3e81e79484f82b77d007c941f4-2117462644.us-east-1.elb.amazonaws.com
